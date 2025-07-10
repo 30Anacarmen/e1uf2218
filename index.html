@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario con Validación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f2f2f2;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 400px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Formulario con Validación JavaScript</h2>
+
+<form id="formulario" action="index2.php" method="get">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+
+    <label for="dni">D.N.I.:</label>
+    <input type="text" id="dni" name="dni" required>
+
+    <label for="correo">Correo electrónico:</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <input type="submit" value="Enviar">
+    <div class="error" id="error"></div>
+</form>
+
+<script>
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+        const nombre = document.getElementById('nombre').value.trim();
+        const apellido = document.getElementById('apellido').value.trim();
+        const dni = document.getElementById('dni').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = '';
+
+        const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+        const regexDNI = /^([A-Z]-\d{2}\.\d{3}\.\d{3}|\d{2}\.\d{3}\.\d{3}-[A-Z])$/;
+        const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!regexNombre.test(nombre)) {
+            e.preventDefault();
+            errorDiv.textContent = "El nombre solo debe contener letras, espacios y tildes.";
+            return;
+        }
+
+        if (!regexNombre.test(apellido)) {
+            e.preventDefault();
+            errorDiv.textContent = "El apellido solo debe contener letras, espacios y tildes.";
+            return;
+        }
+
+        if (!regexDNI.test(dni)) {
+            e.preventDefault();
+            errorDiv.textContent = "El D.N.I. debe tener el formato X-55.555.555 o 55.555.555-X (X = letra mayúscula).";
+            return;
+        }
+
+        if (!regexCorreo.test(correo)) {
+            e.preventDefault();
+            errorDiv.textContent = "Ingrese un correo electrónico válido.";
+            return;
+        }
+    });
+</script>
+
+</body>
+</html>
+
